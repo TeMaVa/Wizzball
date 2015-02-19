@@ -11,6 +11,8 @@
  */
 
 // A Mover object
+
+
 Mover mover;
 
 void setup() {
@@ -21,9 +23,35 @@ void setup() {
 void draw() {
   background(0);
   
+    // Bounce off edges, alhalla "height", oikealla "width"
+  if ((mover.location.x > width) || (mover.location.x < 0))
+  {
+  mover.HitEdge("Horizontal");
+  }
+  
+  if ((mover.location.y > height) || (mover.location.y < 0))
+  {
+    mover.HitEdge("Vertical");
+  }
+  
   // Update the location
-  mover.update();
+  mover.update("NoKey");
+    
   // Display the Mover
   mover.display(); 
 }
 
+ //jatkuu tästä 
+ void keyPressed() {
+   if (keyCode == UP) {
+       print("Pressed Up");
+      mover.update("Up");
+    }
+     if (keyCode == DOWN) {
+       print("Pressed Down");
+      mover.update("Down");
+    }
+  }
+
+
+  
