@@ -1,11 +1,3 @@
-/**
- * Acceleration with Vectors 
- * by Daniel Shiffman.  
- * 
- * Demonstration of the basics of motion with vector.
- * A "Mover" object stores location, velocity, and acceleration as vectors
- * The motion is controlled by affecting the acceleration (in this case towards the mouse)
- */
 
 
 class Mover {
@@ -16,40 +8,72 @@ class Mover {
   PVector acceleration;
   // The Mover's maximum speed
   float topspeed;
+  boolean gravityflip;
 
   Mover() {
     // Start in the center
     location = new PVector(width/2,height/2);
     velocity = new PVector(0,0);
-    topspeed = 5;
+    topspeed = 7;
+    gravityflip = false;
   }
 
-// Possible strings: NoKey, Up,Down,Right,Left
+// Possible strings: NoKey, Up,Down,Right,Left , parameters could be tweaked
 
   void update(String direction) {
-    PVector acceleration = new PVector(0,0);
-    if (direction == "NoKey")
-    {
-        print("Gravity");
-        acceleration = new PVector(0,height);
-        acceleration.setMag(0.1);
-    }
-    if (direction == "Up")
-    {
-      acceleration = new PVector(0,-height);
-      acceleration.setMag(0.4);
-    }
-    if (direction == "Down")
-    {
-      acceleration = new PVector(0,height);
-      acceleration.setMag(0.4);
-    }
-    // Set magnitude of acceleration
 
+  PVector acceleration = new PVector(0,0);
     
+  if (gravityflip == true)
+  {
+      acceleration.set(0,-height);
+      acceleration.setMag(0.1);
+
+      if (direction == "Up" && velocity.y > 0)
+      {
+        PVector UpButton = new PVector(0,-height);
+        UpButton.setMag(0.6);
+        acceleration.add(UpButton);
+      }
+  }
+  else if (gravityflip == false)
+ {
+      acceleration.set(0,height);
+      acceleration.setMag(0.1);
+        
+      if (direction == "Down" && velocity.y < 0)
+      {
+        PVector DownButton = new PVector(0,height);
+        DownButton.setMag(0.6);
+        acceleration.add(DownButton);
+      }        
+ }
+
+    if (direction == "Right")
+    {
+      PVector RightButton = new PVector(width,0);
+      RightButton.setMag(1);
+      acceleration.add(RightButton);
+    }
+
+    if (direction == "Left")
+    {
+      PVector LeftButton = new PVector(-width,0);
+      LeftButton.setMag(1);
+      acceleration.add(LeftButton);
+    }
     // Velocity changes according to acceleration
     velocity.add(acceleration);
     // Limit the velocity by topspeed
+    
+    if (velocity.x > 5)
+    {
+      velocity.x = 5;
+    }
+    if (velocity.x < -5)
+    {
+      velocity.x = -5;
+    }
     velocity.limit(topspeed);
     // Location changes by velocity
     location.add(velocity);
@@ -64,30 +88,81 @@ class Mover {
  
  
  // Possible strings: Horizontal, Vertical
- void HitEdge(String vertical_or_horizontal)
+ void HitBorder(String vertical_or_horizontal)
 {
   if (vertical_or_horizontal == "Horizontal")
   {
-    velocity.x = -2*velocity.x;
-    location.add(velocity);
+    if (location.x < 0)
+    {
+    location.x = width;
+    }
+    
+    else if (location.x > width)
+    {
+    location.x = 0;
+    }
   }
   else if (vertical_or_horizontal == "Vertical")
   {
+    // define bounce elasticity
+    
+    float elasticity = 0.92;
+    
     if (location.y < 0)
     {
-      acceleration = new PVector(0,-2*height);
+    velocity.y = -elasticity * velocity.y;
+    location.y = 0;
     }
     else if (location.y > height)
     {
-      acceleration = new PVector(0,2*height);
-    }      
-    acceleration.setMag(1.2);
-    velocity.sub(acceleration);
-    location.add(velocity);
+    velocity.y = -elasticity * velocity.y;
+    location.y = height;
+    }
+    
     
   }
  
 } 
+
+// Checks if the obstacle has been hit from sides or top/bottom, ball is handled as a "point" atm, could be changed for added value
+
+  void HitEdge(float UpL, float LowL, float LeftL, float RightL)
+  {
+    print(location.y + " ");
+    if (location.y > UpL && location.y < LowL && location.x > LeftL && location.x < RightL)
+    {
+      float U = abs(location.y - UpL);
+      float D = abs(location.y - LowL);
+      float L = abs(location.x - LeftL);
+      float R = abs(location.x - RightL);
+      float y_distance = min(U,D);
+      float x_distance = min(L,R);
+      if (y_distance < x_distance)
+      {
+        velocity.y = -velocity.y;
+      }
+      else
+      {
+        velocity.x = -velocity.x;
+      }
+
+    }
+  }
+  
+  // Gravityflip changes the boolean
+  
+  void gravityflip()
+  {
+    if (gravityflip == true)
+    {
+      gravityflip = false;
+    }
+    else
+    {
+      gravityflip = true;
+    }
+    return;
+  }
 
 }
 
