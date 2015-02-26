@@ -126,17 +126,24 @@ class Mover {
 
 // Checks if the obstacle has been hit from sides or top/bottom, ball is handled as a "point" atm, could be changed for added value
 
-  void HitEdge(float UpL, float LowL, float LeftL, float RightL)
+  void HitEdge(int [][] borders,int ObstacleNumber)
   {
-    print(location.y + " ");
-    if (location.y > UpL && location.y < LowL && location.x > LeftL && location.x < RightL)
-    {
+    for (int i=0; i < ObstacleNumber; i++)
+    {  
+      int UpL = borders[2][i];
+      int LowL = borders[3][i];
+      int LeftL = borders[0][i];
+      int RightL = borders[1][i];
+
+      if(location.y > UpL && location.y < LowL && location.x > LeftL && location.x < RightL)
+      {
       float U = abs(location.y - UpL);
       float D = abs(location.y - LowL);
       float L = abs(location.x - LeftL);
       float R = abs(location.x - RightL);
       float y_distance = min(U,D);
       float x_distance = min(L,R);
+      
       if (y_distance < x_distance)
       {
         velocity.y = -velocity.y;
@@ -147,8 +154,8 @@ class Mover {
       }
 
     }
+    }
   }
-  
   // Gravityflip changes the boolean
   
   void gravityflip()

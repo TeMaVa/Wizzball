@@ -19,26 +19,64 @@ float ObstacleUpL = 100;
 float ObstacleLowL = 180;
 float ObstacleLeftL = 100;
 float ObstacleRightL = 180;
+int X_Size = 720;
+int Y_Size = 440;
 
-//float[][] borders = new float[4][];
+int[][] borders;
+int ObstacleNumber;
 
 // This is for control purposes, there must be a certain time interval between button presses
 int lastPressed = 0;
 
+int RandomNumber(int min, int max)
+{
+  
+  return min + (int)(Math.random() * ((max - min) + 1));
+  
+}
+
+void InitializeObstacles(int TotalNumber)
+{
+  int slice_x;
+  int slice_y;
+  borders = new int[4][TotalNumber];
+  for (int i = 0; i < TotalNumber; i++)
+  {
+    slice_x = round(i*(X_Size/TotalNumber));
+    slice_y = round(i*(Y_Size/TotalNumber));
+    //left
+    borders[0][i] = RandomNumber(slice_x, slice_x+20);
+    //right
+    borders[1][i] = RandomNumber(slice_x+50, slice_x+70);
+    //up
+    borders[2][i] = RandomNumber(slice_y, slice_y+20);
+    //bottom
+    borders[3][i] = RandomNumber(slice_y+50, slice_y+70);
+  }
+  
+}
+
 void setup() {
-  size(720,440,P2D);
+  size(X_Size,Y_Size,P2D);
   mover = new Mover();
+  ObstacleNumber = RandomNumber(1,5);
+  InitializeObstacles(ObstacleNumber);
 }
 
 void draw() {
   background(0);
-  square = createShape(RECT,ObstacleLeftL,ObstacleUpL,ObstacleRightL-ObstacleLeftL,ObstacleLowL-ObstacleUpL);
-  shape(square);
+  for(int i = 0; i < ObstacleNumber; i++)
+  {
+    square = createShape(RECT,borders[0][i],borders[2][i],borders[1][i]-borders[0][i],borders[3][i]-borders[2][i]);
+    shape(square);
+  }
   
     // Bounce off edges, alhalla "height", oikealla "width"
   if ((mover.location.x > width) || (mover.location.x < 0))
   {
   mover.HitBorder("Horizontal");
+  ObstacleNumber = RandomNumber(1,5);
+  InitializeObstacles(ObstacleNumber);
   }
   
   if ((mover.location.y > height) || (mover.location.y < 0))
@@ -46,7 +84,7 @@ void draw() {
     mover.HitBorder("Vertical");
   }
   // Check if obstacles are hit
-  mover.HitEdge(ObstacleUpL,ObstacleLowL,ObstacleLeftL,ObstacleRightL);
+  mover.HitEdge(borders,ObstacleNumber);
 
   mover.update("NoKey");
   // Display the Mover
@@ -75,11 +113,9 @@ if(millis() - lastPressed < 150)
     }
     if (keyCode == TAB)
     {
-      print("G");
       mover.gravityflip();
     }
     lastPressed = millis();
   }
 
 
-  
