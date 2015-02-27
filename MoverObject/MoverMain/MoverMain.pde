@@ -1,20 +1,15 @@
-
-
-
-
 import java.util.*;
 
 // A Mover object
-
 Mover mover;
 
 // PShape object for creating obstacles
 PShape square;
 
-
+String typing = "";
+String saved = "";
 
 // These are the obstacle borders for one obstacle, we should make a data structure to store more of these and change the HitEdge function (Mover interface)
-
 float ObstacleUpL = 100;
 float ObstacleLowL = 180;
 float ObstacleLeftL = 100;
@@ -24,6 +19,7 @@ int Y_Size = 440;
 
 int[][] borders;
 int ObstacleNumber;
+int gameState = 1;
 
 // This is for control purposes, there must be a certain time interval between button presses
 int lastPressed = 0;
@@ -61,9 +57,12 @@ void setup() {
   mover = new Mover();
   ObstacleNumber = RandomNumber(1,5);
   InitializeObstacles(ObstacleNumber);
+  //textSize(40);
 }
 
 void draw() {
+  if (gameState == 0) {
+    
   background(0);
   for(int i = 0; i < ObstacleNumber; i++)
   {
@@ -71,7 +70,7 @@ void draw() {
     shape(square);
   }
   
-    // Bounce off edges, alhalla "height", oikealla "width"
+  // Bounce off edges, alhalla "height", oikealla "width"
   if ((mover.location.x > width) || (mover.location.x < 0))
   {
   mover.HitBorder("Horizontal");
@@ -89,12 +88,22 @@ void draw() {
   mover.update("NoKey");
   // Display the Mover
   mover.display(); 
+  }
+  
+  else {
+    background(100);
+    textSize(40);
+    text("WIZZBALL", 10, 170);
+    textSize(18);
+    text("Press ENTER to start an adventure", 10, 190);
+    textSize(14);
+    text("Once upon a time there was Ball. One day he decided to get some excitement to his boring life.", 10, 25);   
+  }
 }
 
 // Check button presses
-
- void keyPressed() {
-   
+void keyPressed() {
+if(gameState == 0) {   
 if(millis() - lastPressed < 150)
 {
   return;
@@ -116,6 +125,11 @@ if(millis() - lastPressed < 150)
       mover.gravityflip();
     }
     lastPressed = millis();
+}
+
+else {
+  if (keyCode == ENTER) {
+    gameState = 0;
   }
-
-
+}
+}
