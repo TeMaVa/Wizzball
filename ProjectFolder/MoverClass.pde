@@ -135,7 +135,7 @@ class Mover {
       int LeftL = borders[0][i];
       int RightL = borders[1][i];
 
-      if(location.y > UpL && location.y < LowL && location.x > LeftL && location.x < RightL)
+      if(location.y > UpL - 12 && location.y < LowL + 12 && location.x > LeftL - 12 && location.x < RightL + 12)
       {
       float U = abs(location.y - UpL);
       float D = abs(location.y - LowL);
