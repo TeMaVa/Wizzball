@@ -29,10 +29,10 @@ class Mover {
       acceleration.set(0,-height);
       acceleration.setMag(0.1);
 
-      if (direction == "Up" && velocity.y > 0)
+      if (direction == "Up")
       {
         PVector UpButton = new PVector(0,-height);
-        UpButton.setMag(0.6);
+        UpButton.setMag(0.8);
         acceleration.add(UpButton);
       }
   }
@@ -41,10 +41,10 @@ class Mover {
       acceleration.set(0,height);
       acceleration.setMag(0.1);
         
-      if (direction == "Down" && velocity.y < 0)
+      if (direction == "Down")
       {
         PVector DownButton = new PVector(0,height);
-        DownButton.setMag(0.6);
+        DownButton.setMag(0.8);
         acceleration.add(DownButton);
       }        
  }
@@ -126,35 +126,27 @@ class Mover {
 
 // Checks if the obstacle has been hit from sides or top/bottom, ball is handled as a "point" atm, could be changed for added value
 
-  void HitEdge(int [][] borders,int ObstacleNumber)
+  void HitEdge(Shape shape)
   {
-    for (int i=0; i < ObstacleNumber; i++)
-    {  
-      int UpL = borders[2][i];
-      int LowL = borders[3][i];
-      int LeftL = borders[0][i];
-      int RightL = borders[1][i];
-
-      if(location.y > UpL - 12 && location.y < LowL + 12 && location.x > LeftL - 12 && location.x < RightL + 12)
+    int contact = shape.HitBorders(location.x,location.y);
+    
+    if (contact == 0)
       {
-      float U = abs(location.y - UpL);
-      float D = abs(location.y - LowL);
-      float L = abs(location.x - LeftL);
-      float R = abs(location.x - RightL);
-      float y_distance = min(U,D);
-      float x_distance = min(L,R);
+        return;
+      }
       
-      if (y_distance < x_distance)
-      {
-        velocity.y = -velocity.y;
-      }
-      else
-      {
-        velocity.x = -velocity.x;
-      }
-
+    else if (contact == 1)
+    {
+      velocity.y = -velocity.y;
+      return;
     }
+    
+    else
+    {
+      velocity.x = -velocity.x;
+      return;
     }
+      
   }
   // Gravityflip changes the boolean
   
