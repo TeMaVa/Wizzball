@@ -78,47 +78,37 @@ class Mover {
     // Location changes by velocity
     location.add(velocity);
   }
-
-  void display() {
-    stroke(255);
-    strokeWeight(2);
-    fill(127);
-    ellipse(location.x,location.y,48,48);
-  }
- 
  
  // Possible strings: Horizontal, Vertical
- void HitBorder(String vertical_or_horizontal)
+ void HitBorder(int[] gapPlaces, int[] gapWidths)
 {
-  if (vertical_or_horizontal == "Horizontal")
+
+  if (location.x < 0)
   {
-    if (location.x < 0)
-    {
-    location.x = width;
-    }
-    
-    else if (location.x > width)
-    {
-    location.x = 0;
-    }
+  location.x = width;
   }
-  else if (vertical_or_horizontal == "Vertical")
+  
+  else if (location.x > width)
   {
-    // define bounce elasticity
-    
-    float elasticity = 0.92;
-    
-    if (location.y < 0)
-    {
-    velocity.y = -elasticity * velocity.y;
-    location.y = 0;
-    }
-    else if (location.y > height)
-    {
-    velocity.y = -elasticity * velocity.y;
-    location.y = height;
-    }
-    
+  location.x = 0;
+  }
+
+{
+  // define bounce elasticity
+  
+  float elasticity = 0.92;
+  
+  if (location.y < 0 && HitGap(gapPlaces, gapWidths) != true)
+  {
+  velocity.y = -elasticity * velocity.y;
+  location.y = 0;
+  }
+  else if (location.y > height && HitGap(gapPlaces, gapWidths) != true)
+  {
+  velocity.y = -elasticity * velocity.y;
+  location.y = height;
+  }
+  
     
   }
  
@@ -161,6 +151,41 @@ class Mover {
       gravityflip = true;
     }
     return;
+  }
+
+  void display() {
+    stroke(255);
+    strokeWeight(2);
+    fill(127);
+    ellipse(location.x,location.y,48,48);
+  }
+ 
+
+  boolean HitNasty(PVector NastyLocation)
+  {
+    PVector difference = new PVector (0,0);
+    difference = difference.sub(NastyLocation,location);
+    float magnitude = difference.mag();
+    print (magnitude);
+    
+    if (magnitude < 50)
+    {
+      return true;
+    }
+    
+    return false;
+    
+  }
+  
+  // NEEDS LOOPING
+  
+  private boolean HitGap(int[] gapPlaces, int[] gapWidth)
+  {
+    if (location.x < gapPlaces[0] + gapWidth[0]/2 && location.x > gapPlaces[0] - gapWidth[0]/2)
+    {
+      return true;
+    }
+    return false;
   }
 
 }
