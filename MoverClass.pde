@@ -78,7 +78,7 @@ class Mover {
   }
  
  // Possible strings: Horizontal, Vertical
- void HitBorder(int[] gapPlaces, int[] gapWidths)
+boolean HitBorder(int[] gapPlaces, int[] gapWidths)
 {
 
   if (location.x < 0)
@@ -91,22 +91,29 @@ class Mover {
   location.x = 0;
   }
 
-{
+
   // define bounce elasticity
   
   float elasticity = 0.92;
   
-  if (location.y < 0 && HitGap(gapPlaces, gapWidths) != true)
+  if (HitGap(gapPlaces,gapWidths) && location.y > 470)
+  {
+    return true;
+  }
+  
+  if (location.y < 0)
   {
   velocity.y = -elasticity * velocity.y;
   location.y = 0;
   }
-  else if (location.y > height && HitGap(gapPlaces, gapWidths) != true)
+  else if (location.y > height && HitGap(gapPlaces,gapWidths) != true)
   {
   velocity.y = -elasticity * velocity.y;
   location.y = height;
-  }    
- } 
+  }
+  
+  return false;
+  
 } 
 
 // Checks if the obstacle has been hit from sides or top/bottom, ball is handled as a "point" atm, could be changed for added value

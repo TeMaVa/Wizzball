@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 // A Mover object
 Mover mover;
 
@@ -56,10 +57,14 @@ void draw() {
   paraDraw(back, vback, 0.3);
   
   strokeWeight(8);
-  line(0,0,gapPlaces[0] - gapWidths[0],0);
-  line(gapPlaces[0] + gapWidths[0],0,X_Size,0);
+//  line(0,0,gapPlaces[0] - gapWidths[0],0);
+//  line(gapPlaces[0] + gapWidths[0],0,X_Size,0);
   
-  line(0,Y_Size,X_Size,Y_Size);
+  line(0,0,X_Size,0);
+  
+  line(0,Y_Size,gapPlaces[0] - gapWidths[0],Y_Size);
+  line(gapPlaces[0] + gapWidths[0],Y_Size,X_Size,Y_Size);
+  
   mover.display(); 
   nasty.display();
 
@@ -67,8 +72,21 @@ void draw() {
   shape2.Display();
   shape3.Display();
   
-  mover.HitBorder(gapPlaces,gapWidths);
+  
+  if(mover.HitBorder(gapPlaces,gapWidths))
+  {
+  try {
+    Thread.sleep(1000);
+  } catch(InterruptedException ex) {
+    Thread.currentThread().interrupt();
+  }
+  gameState = 2;
+  } 
+    
+  
   nasty.HitBorder();
+  
+  
   
   mover.HitEdge(shape);
   mover.HitEdge(shape2);
