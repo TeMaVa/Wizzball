@@ -77,8 +77,7 @@ void draw() {
   nasty.HitEdge(shape2);
   nasty.HitEdge(shape3);
   
- if(mover.HitNasty(nasty.RequestLocation()))
-  {
+ if (mover.HitNasty(nasty.RequestLocation())) {
     gameState = 2;
   }
   
@@ -92,11 +91,11 @@ void draw() {
   else if (gameState == 1) {
     background(100);
     textSize(40);
-    text("WIZZBALL", 10, 170);
+    text("WIZZBALL", 5, 170);
     textSize(18);
-    text("Press ENTER to start an adventure", 10, 190);
+    text("Press ENTER to start an adventure", 5, 190);
     textSize(14);
-    text("Once upon a time there was Ball. One day he decided to get some excitement to his boring life.", 10, 25);  
+    text("Once upon a time there was Ball. One day he decided to get some excitement to his otherwise boring life.", 1, 25);  
   }
   
   // End screen
@@ -151,6 +150,7 @@ int RandomNumber(int min, int max)
   return min + (int)(Math.random() * ((max - min) + 1));  
 }
 
+// Function for parallel scrolling
 void paraDraw(PImage img, PVector pos, float vel) {
   pos.sub(vel, 0, 0);
   

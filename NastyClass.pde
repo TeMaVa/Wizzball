@@ -64,7 +64,7 @@ class Nasty {
     }
   
   {
-    // define bounce elasticity   
+    // Define bounce elasticity   
     float elasticity = 0.99;
     
     if (location.y < 0)
