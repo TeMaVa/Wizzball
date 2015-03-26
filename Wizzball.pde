@@ -9,6 +9,7 @@ Shape shape2;
 Shape shape3;
 
 Nasty nasty;
+Nasty nasty2;
 
 // PShape object for creating obstacles
 PShape square;
@@ -47,6 +48,7 @@ void setup() {
   
   mover = new Mover();
   nasty = new Nasty();
+  nasty2 = new Nasty();
   
   int borders[] = new int[] {20,50,20,50};
   shape = new Shape(borders);
@@ -79,6 +81,7 @@ void draw() {
   
   mover.display(); 
   nasty.display();
+  nasty2.display();
 
   shape.Display();
   shape2.Display();
@@ -94,7 +97,8 @@ void draw() {
   } 
       
   nasty.HitBorder();
-    
+  nasty2.HitBorder();
+  
   mover.HitEdge(shape);
   mover.HitEdge(shape2);
   mover.HitEdge(shape3);
@@ -102,13 +106,23 @@ void draw() {
   nasty.HitEdge(shape2);
   nasty.HitEdge(shape3);
   
+  nasty2.HitEdge(shape);
+  nasty2.HitEdge(shape2);
+  nasty2.HitEdge(shape3);  
+
+  
  if (mover.HitNasty(nasty.RequestLocation())) {
+    gameState = 2;
+  }
+  
+ if (mover.HitNasty(nasty2.RequestLocation())) {
     gameState = 2;
   }
   
   mover.update("NoKey");
   nasty.update(RandomNumber(-1,1),RandomNumber(-1,1));
-  
+  nasty2.update(int(mover.velocity.x),int(mover.velocity.y));
+
    // Display the Mover
  }
  
