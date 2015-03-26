@@ -166,7 +166,7 @@ boolean HitBorder(int[] gapPlaces, int[] gapWidths)
     PVector difference = new PVector (0,0);
     difference = difference.sub(NastyLocation,location);
     float magnitude = difference.mag();
-    print (magnitude);
+    //print (magnitude);
     
     if (magnitude < 50)
     {

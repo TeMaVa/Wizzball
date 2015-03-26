@@ -1,10 +1,9 @@
 import java.util.*;
 
-
 // A Mover object
 Mover mover;
 
-// Own Shape
+// Own Shapes
 Shape shape;
 Shape shape2;
 Shape shape3;
@@ -18,8 +17,13 @@ PShape square;
 PImage back;
 PVector vback;
 
+// Size of the screen
 int X_Size = 720;
 int Y_Size = 440;
+
+// Values for timer
+int time;
+int clock;
 
 // State of the game for starting screen etc.
 int gameState = 1;
@@ -36,6 +40,10 @@ void setup() {
   back = loadImage("back.png");
   
   vback = new PVector(0, 0);
+  
+  // Initializing the timer
+  clock = 30;
+  time = millis();
   
   mover = new Mover();
   nasty = new Nasty();
@@ -54,7 +62,11 @@ void draw() {
   // In game
  if (gameState == 0) {
     
+  // Draws the moving background image
   paraDraw(back, vback, 0.3);
+  
+  // For tracking the time left
+  timer();
   
   strokeWeight(8);
 //  line(0,0,gapPlaces[0] - gapWidths[0],0);
@@ -71,23 +83,18 @@ void draw() {
   shape.Display();
   shape2.Display();
   shape3.Display();
-  
-  
-  if(mover.HitBorder(gapPlaces,gapWidths))
-  {
-  try {
-    Thread.sleep(1000);
-  } catch(InterruptedException ex) {
-    Thread.currentThread().interrupt();
-  }
-  gameState = 2;
-  } 
     
-  
+  if(mover.HitBorder(gapPlaces,gapWidths)) {
+    try {
+      Thread.sleep(1000);
+    } catch(InterruptedException ex) {
+        Thread.currentThread().interrupt();
+      }
+    gameState = 2;
+  } 
+      
   nasty.HitBorder();
-  
-  
-  
+    
   mover.HitEdge(shape);
   mover.HitEdge(shape2);
   mover.HitEdge(shape3);
@@ -104,7 +111,7 @@ void draw() {
   
    // Display the Mover
  }
-  
+ 
   // Starting screen
   else if (gameState == 1) {
     background(100);
@@ -179,4 +186,15 @@ void paraDraw(PImage img, PVector pos, float vel) {
   if (pos.x < -img.width) pos.x = width;
   
   image(img, pos.x, pos.y);
+}
+
+// Timer function - ends the game when the time runs out
+void timer() {  
+  if (millis() - time >= 1000) {
+    clock--;
+    println(clock);
+    time = millis();
+    
+    if (clock == 0) gameState = 2;
+  }
 }
