@@ -121,7 +121,7 @@ void draw() {
   
   mover.update("NoKey");
   nasty.update(RandomNumber(-1,1),RandomNumber(-1,1));
-  nasty2.update(int(mover.velocity.x),int(mover.velocity.y));
+  nasty2.update(int(nasty2.location.x-mover.location.x),int(nasty2.location.y-mover.location.y));
 
    // Display the Mover
  }
