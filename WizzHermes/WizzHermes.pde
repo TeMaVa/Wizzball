@@ -1,3 +1,6 @@
+import processing.opengl.*;
+import java.util.Hashtable;
+
 // Importing Hermes libraries
 import hermes.*;
 import hermes.hshape.*;
@@ -9,13 +12,15 @@ import hermes.postoffice.*;
 // CONSTANTS
 ///////////////////////////////////////////////////
 
-static final int WINDOW_WIDTH = 600;
-static final int WINDOW_HEIGHT = 480;
+static final int WINDOW_WIDTH = 720;
+static final int WINDOW_HEIGHT = 600;
+
+static final float GRAVITY = -200;
 
 GameWorld world;
 BallCamera cam;
 Ball ball;
-
+PlatformGroup platforms;
 ///////////////////////////////////////////////////
 // PAPPLET
 ///////////////////////////////////////////////////
@@ -26,6 +31,8 @@ void setup() {
   
   rectMode(CENTER);
   frameRate(60);
+  
+
   
   cam = new BallCamera();
   world = new GameWorld(cam);
@@ -38,3 +45,5 @@ void draw() {
   
   world.draw();
 }
+
+

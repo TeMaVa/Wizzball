@@ -1,17 +1,18 @@
 // The main ball
-class Ball extends Being {
+class Ball extends MassedBeing {
   
   // The amount of movement
-  static final int STEP = 5;
+  static final int STEP = 3;
   
   // Directions
   boolean _up;
   boolean _down;
   boolean _left;
   boolean _right;
+  boolean _gravityflip;
   
   Ball(PVector position, float radius) {
-    super(new HCircle(position, radius));
+    super(new HCircle(position, radius),HermesMath.zeroVector(), 2.0f, 1.0f);
 
     _up = false;
     _down = false;
@@ -24,20 +25,25 @@ class Ball extends Being {
   public void update() {
     if (_up) {
       _position.y -= STEP;
+      _velocity.y -= 0.5* STEP;
     } 
     if (_right) {
       _position.x += STEP;
+      _velocity.x += 2 * STEP;
     } 
     if (_down) {
       _position.y += STEP;
+      _velocity.y += 0.5 * STEP;
     } 
     if (_left) {
       _position.x -= STEP;
+      _velocity.x -= 2 * STEP;
     }
     
     // For testing
     println(ball.getPosition().x);
     println(ball.getPosition().y);
+    addForce(new PVector(0, -GRAVITY * getMass(), 0));
   }
 
   public void draw() {   
@@ -78,5 +84,7 @@ class Ball extends Being {
     }
   }
  }
+ 
+ 
 }
 
