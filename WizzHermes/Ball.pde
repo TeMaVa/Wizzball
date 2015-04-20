@@ -10,6 +10,7 @@ class Ball extends MassedBeing {
   boolean _left;
   boolean _right;
   boolean _gravityflip;
+  float _topspeed = 200;
   
   Ball(PVector position, float radius) {
     super(new HCircle(position, radius),HermesMath.zeroVector(), 2.0f, 1.0f);
@@ -18,32 +19,63 @@ class Ball extends MassedBeing {
     _down = false;
     _left = false;
     _right = false;
+    _gravityflip = false;
     
     fill(20, 102, 0);
   }
 
   public void update() {
+    
+//    println(ball.getVelocity().y);
     if (_up) {
+      if (_velocity.y > 0)
+      {
       _position.y -= STEP;
       _velocity.y -= 0.5* STEP;
-    } 
-    if (_right) {
-      _position.x += STEP;
-      _velocity.x += 2 * STEP;
-    } 
+      }
+    }     
     if (_down) {
+      if (_velocity.y < 0)
+      {
       _position.y += STEP;
       _velocity.y += 0.5 * STEP;
+      }
+    } 
+    
+    if (_velocity.x > _topspeed)
+    {
+      _velocity.x = _topspeed;
+      return;
+    }
+    if (_velocity.x < -_topspeed)
+    {
+      _velocity.x = -_topspeed;
+      return;
+    }
+    
+    if (_right) {
+      _position.x += STEP;
+      _velocity.x += 3 * STEP;
     } 
     if (_left) {
       _position.x -= STEP;
-      _velocity.x -= 2 * STEP;
+      _velocity.x -= 3 * STEP;
     }
     
+    
+    
     // For testing
-    println(ball.getPosition().x);
-    println(ball.getPosition().y);
-    addForce(new PVector(0, -GRAVITY * getMass(), 0));
+//    println(ball.getPosition().x);
+//    println(ball.getPosition().y);
+    if (_gravityflip)
+    {
+      addForce(new PVector(0, GRAVITY * getMass(), 0));
+    }
+    else
+    {
+      addForce(new PVector(0, -GRAVITY * getMass(), 0));
+    }
+
   }
 
   public void draw() {   
@@ -53,6 +85,7 @@ class Ball extends MassedBeing {
   // Receiving user input
   public void receive(KeyMessage m) {
   int code = m.getKeyCode();
+
   
   if (m.isPressed()) {   
     if (code == POCodes.Key.UP) {
@@ -66,6 +99,12 @@ class Ball extends MassedBeing {
     } 
     else if (code == POCodes.Key.LEFT) {
       _left = true;
+    }
+      
+    else if (code == POCodes.Key.TAB)
+    {
+        println("FLIP");
+      _gravityflip = !_gravityflip;
     }
   } 
   

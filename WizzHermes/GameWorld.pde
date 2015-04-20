@@ -25,7 +25,7 @@ class GameWorld extends World {
     subscribe(ball, POCodes.Key.RIGHT);
     subscribe(ball, POCodes.Key.DOWN);
     subscribe(ball, POCodes.Key.LEFT);
-    
+    subscribe(ball, POCodes.Key.TAB);
     world.register(ball, platforms, new PlatformCollider(0.97));
   }
 }
