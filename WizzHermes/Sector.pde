@@ -5,10 +5,10 @@
  */
 static class Sector extends Being {
   
-  final static int SECTOR_SIZE = 1800;    // pixel width of the sectors
-  final static float VERTICAL_STEP = 120; // vertical space between platforms
+  final static int SECTOR_SIZE = 900;    // pixel width of the sectors
+  final static float VERTICAL_STEP = 150; // vertical space between platforms
   
-  HRectangle rectangle;   // the rectangle
+  HRectangle rectangle;   // the rectanglep
   
   int x, y;         // coordinates -- these are in sector space (1 unit per sector), not pixel space
   

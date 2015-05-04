@@ -12,8 +12,8 @@ import hermes.postoffice.*;
 // CONSTANTS
 ///////////////////////////////////////////////////
 
-static final int WINDOW_WIDTH = 720;
-static final int WINDOW_HEIGHT = 600;
+static final int WINDOW_WIDTH = 1500;
+static final int WINDOW_HEIGHT = 900;
 
 static final float GRAVITY = -200;
 

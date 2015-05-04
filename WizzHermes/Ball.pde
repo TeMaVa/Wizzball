@@ -75,6 +75,11 @@ class Ball extends MassedBeing {
     {
       addForce(new PVector(0, -GRAVITY * getMass(), 0));
     }
+    if(_velocity.y >= _topspeed*2)
+    {
+      _velocity.y = _topspeed*2;
+    }
+    
 
   }
 
@@ -103,7 +108,6 @@ class Ball extends MassedBeing {
       
     else if (code == POCodes.Key.TAB)
     {
-        println("FLIP");
       _gravityflip = !_gravityflip;
     }
   } 

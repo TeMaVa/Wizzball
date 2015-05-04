@@ -1,6 +1,6 @@
 // The World
 class GameWorld extends World {
-  PVector position = new PVector(200,200);
+  PVector position = new PVector(100,100);
   float radius = 30;
   
 

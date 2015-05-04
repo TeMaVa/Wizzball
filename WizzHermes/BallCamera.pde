@@ -6,7 +6,8 @@ class BallCamera extends HCamera {
   
   void draw() {   
     setPosition(ball.getPosition().x - WINDOW_WIDTH / 2,
-                ball.getPosition().y - WINDOW_HEIGHT / 2);
+//                ball.getPosition().y - WINDOW_HEIGHT / 2);
+                -100);
     super.draw();
   }
 }
