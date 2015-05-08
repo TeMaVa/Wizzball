@@ -3,11 +3,11 @@
 class PowerUp extends MassedBeing {
 
   
-  float _topspeed = 400;
+  float _topspeed = 350;
   float _colourr;
   float _colourg;
   float _colourb;
-
+  boolean hidden = false;
   PowerUp(PVector position, ArrayList<PVector> shapepoints) {
       super(new HPolygon(position,shapepoints),HermesMath.zeroVector(), 2.0f, 1.0f);
 
@@ -53,10 +53,11 @@ class PowerUp extends MassedBeing {
 }
 
   public void draw() {   
-
      fill(_colourr, _colourg, _colourb);
     _shape.draw();
 
   }
+  
+    
 }
 

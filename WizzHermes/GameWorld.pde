@@ -19,7 +19,9 @@ class GameWorld extends World {
     
     ball = new Ball(position, radius);
     register(ball, true);
-        
+    baddies = new BaddieGroup(world);
+    crawlers = new CrawlerGroup(world);
+    powerups = new PowerUpGroup(world);
     // Subscribing the ball for user input
     subscribe(ball, POCodes.Key.UP);
     subscribe(ball, POCodes.Key.RIGHT);
@@ -27,6 +29,11 @@ class GameWorld extends World {
     subscribe(ball, POCodes.Key.LEFT);
     subscribe(ball, POCodes.Key.TAB);
     world.register(ball, platforms, new PlatformCollider(0.97));
+    world.register(baddies,platforms, new PlatformCollider(0.97));
+    world.register(ball,baddies,new BaddieCollider());
+    world.register(crawlers,platforms,new CrawlerPlatformCollider(0));
+    world.register(ball,crawlers,new CrawlerCollider());
+    world.register(ball,powerups,new PowerUpCollider());
   }
 }
 

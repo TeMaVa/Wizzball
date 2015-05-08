@@ -2,8 +2,8 @@ class CrawlerGroup extends Group<MassedBeing> {
   
     CrawlerGroup(World world) { 
     super(world);
-    addCrawler(30,30);
-    addCrawler(60,60);
+    addCrawler(300,30);
+    addCrawler(-200,60);
   }
   
   private void addCrawler(float x, float y)

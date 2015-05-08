@@ -46,10 +46,7 @@ class Crawler extends MassedBeing {
 
   public void draw() {   
     
-    if (hidden)
-    {
-      return;
-    }
+
      fill(_colourr, _colourg, _colourb);
     _shape.draw();
 

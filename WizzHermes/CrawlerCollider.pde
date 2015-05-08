@@ -6,10 +6,13 @@ class CrawlerCollider extends GenericMassedCollider<Ball, Crawler> {
   
    void handle(Ball ball, Crawler crawler) {
     
-    crawler.hide();
-    crawler = null;
-
-    println("Handlattu"); // have GenericMassedCollider do the rest
+    if (ball.AM_I_GOD())
+    {
+      world.delete(crawler);
+      return;
+    }
+    
+    GameState = 2;
   } 
   
 }

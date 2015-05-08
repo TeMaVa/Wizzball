@@ -4,13 +4,12 @@ class PowerUpGroup extends Group<MassedBeing> {
   
     PowerUpGroup(World world) { 
     super(world);
-    addPowerUp(new PVector(200,200),50);
-    addPowerUp(new PVector(300,300),30);
-    addPowerUp(new PVector(2000,200),30);
+    addPowerUp(new PVector(200,200));
+    addPowerUp(new PVector(2000,200));
   }
   
   
-    private void addPowerUp(PVector center, float radius) {
+    private void addPowerUp(PVector center) {
     ArrayList<PVector> shapepoints = new ArrayList<PVector>();
     shapepoints.add(new PVector(0,0,0));
     shapepoints.add(new PVector(50,50,0));

@@ -1,5 +1,5 @@
 // Handles player-platform collisions
-class PlatformCollider extends GenericMassedCollider<Ball, Platform> {
+class PlatformCollider extends GenericMassedCollider<MassedBeing, Platform> {
   
   PlatformCollider(float elasticity) {
     super(elasticity);
@@ -9,6 +9,17 @@ class PlatformCollider extends GenericMassedCollider<Ball, Platform> {
   void handle(Ball ball, Platform platform) {
     
     super.handle(ball, platform); // have GenericMassedCollider do the rest
+  }
+  
+  void handle(Baddie baddie, Platform platform) {
+    super.handle(baddie, platform);
+  }
+  
+  void handle(Crawler crawler, Platform platform) {
+
+//    super.handle(crawler, platform);
+    crawler.stopfall();
+
   }
   
 }

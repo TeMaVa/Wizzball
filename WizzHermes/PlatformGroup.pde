@@ -26,7 +26,6 @@ class PlatformGroup extends Group<Platform> {
   void generatePlatforms(HRectangle area, float verticalStep, float density) {
 
     float boxWidth = area.getWidth();
-    println("BoxWidth on " + boxWidth);
     float boxHeight = area.getHeight();
     float maxPlatWidth = boxWidth / 2;
     float minPlatWidth = Platform.HEIGHT * 2;
@@ -35,7 +34,7 @@ class PlatformGroup extends Group<Platform> {
       
 
       float x = area.getAbsMin().x; // start at the left end of the rect
-      println("x on " + x);
+//      println("x on " + x);
       float platWidth = random(minPlatWidth, maxPlatWidth); // width of the new platform
       float baseDist = random(minPlatWidth, maxPlatWidth);  // distance before the new platform
       x += platWidth / 2 + baseDist / density;              // move to the midpoint of the new platform

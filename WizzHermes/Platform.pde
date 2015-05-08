@@ -4,7 +4,7 @@
 class Platform extends MassedBeing {
  
   static final float HEIGHT = 40.0f;              // the platform's height
-  final color COLOR = color(125,125,125);  // the platform's color
+  final color COLOR = color(random(20,125),random(20,125),random(20,125));  // the platform's color
 
   float width;   // width of this platform
 

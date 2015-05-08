@@ -11,6 +11,8 @@ class Ball extends MassedBeing {
   boolean _right;
   boolean _gravityflip;
   float _topspeed = 200;
+  boolean godmode = false;
+  int timer;
   
   Ball(PVector position, float radius) {
     super(new HCircle(position, radius),HermesMath.zeroVector(), 2.0f, 1.0f);
@@ -20,8 +22,8 @@ class Ball extends MassedBeing {
     _left = false;
     _right = false;
     _gravityflip = false;
-    
-    fill(20, 102, 0);
+
+
   }
 
   public void update() {
@@ -83,8 +85,53 @@ class Ball extends MassedBeing {
 
   }
 
-  public void draw() {   
+  public void draw() {
+    
+    int timeleft = millis() - timer;
+    if (godmode && timeleft > 6000)
+    {
+      println("godmode off");
+      godmode = false;
+    }
+    fill(255, 255, 255); 
+    if (godmode)
+    {
+      fill(255,0,0);
+      if (timeleft > 2000)
+      {
+      fill(255,50,50);
+      }
+      if (timeleft > 3000)
+      {
+      fill(255,100,100);
+      }
+      if (timeleft > 4000)
+      {
+      fill(255,150,150);
+      }
+      if (timeleft > 5000)
+      {
+      fill(255,200,200);
+      }
+    }
     _shape.draw();
+
+  }
+  
+  public void godmode()
+  {
+    timer = millis();
+    godmode = true;
+    println("godmode on");
+  }
+  
+  public boolean AM_I_GOD()
+  {
+    if (godmode)
+    {
+      return true;
+    }
+    return false;
   }
   
   // Receiving user input

@@ -6,7 +6,12 @@ class BaddieCollider extends GenericMassedCollider<Ball, Baddie> {
   
    void handle(Ball ball, Baddie baddie) {
     
-    println("Handlattu"); // have GenericMassedCollider do the rest
+    if (ball.AM_I_GOD())
+    {
+      world.delete(baddie);
+      return;
+    }
+    GameState = 2;
   } 
   
 }
