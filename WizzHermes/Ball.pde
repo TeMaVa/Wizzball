@@ -22,13 +22,10 @@ class Ball extends MassedBeing {
     _left = false;
     _right = false;
     _gravityflip = false;
-
-
   }
 
   public void update() {
     
-//    println(ball.getVelocity().y);
     if (_up) {
       if (_velocity.y > 0)
       {
@@ -64,11 +61,6 @@ class Ball extends MassedBeing {
       _velocity.x -= 3 * STEP;
     }
     
-    
-    
-    // For testing
-//    println(ball.getPosition().x);
-//    println(ball.getPosition().y);
     if (_gravityflip)
     {
       addForce(new PVector(0, GRAVITY * getMass(), 0));
@@ -82,18 +74,25 @@ class Ball extends MassedBeing {
       _velocity.y = _topspeed*2;
     }
     
-
-  }
+    // If the ball gets out of the gameworld, the game ends
+    if (ball.getPosition().y > 900 ||
+        ball.getPosition().y < -150) 
+    {
+      GameState = 1;
+    }
+ }
 
   public void draw() {
     
     int timeleft = millis() - timer;
+    
     if (godmode && timeleft > 6000)
     {
-      println("godmode off");
       godmode = false;
     }
+    
     fill(255, 255, 255); 
+    
     if (godmode)
     {
       fill(255,0,0);
@@ -115,14 +114,12 @@ class Ball extends MassedBeing {
       }
     }
     _shape.draw();
-
   }
   
   public void godmode()
   {
     timer = millis();
     godmode = true;
-    println("godmode on");
   }
   
   public boolean AM_I_GOD()
@@ -137,7 +134,6 @@ class Ball extends MassedBeing {
   // Receiving user input
   public void receive(KeyMessage m) {
   int code = m.getKeyCode();
-
   
   if (m.isPressed()) {   
     if (code == POCodes.Key.UP) {
@@ -173,8 +169,6 @@ class Ball extends MassedBeing {
       _left = false;
     }
   }
- }
- 
- 
+ } 
 }
 

@@ -20,6 +20,5 @@ class Platform extends MassedBeing {
   void draw() {
     fill(COLOR);
     rect(0, 0, width, HEIGHT);
-  }
- 
+  } 
 }

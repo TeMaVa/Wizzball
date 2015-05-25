@@ -11,6 +11,5 @@ class CrawlerGroup extends Group<MassedBeing> {
     Crawler crawler = new Crawler(x,y);
     world.register(crawler,true);
     this.add(crawler);
-  }
-  
+  }  
 }

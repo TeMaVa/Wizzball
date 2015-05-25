@@ -1,5 +1,4 @@
 
-
 class PowerUpGroup extends Group<MassedBeing> {
   
     PowerUpGroup(World world) { 
@@ -7,8 +6,7 @@ class PowerUpGroup extends Group<MassedBeing> {
     addPowerUp(new PVector(200,200));
     addPowerUp(new PVector(2000,200));
   }
-  
-  
+ 
     private void addPowerUp(PVector center) {
     ArrayList<PVector> shapepoints = new ArrayList<PVector>();
     shapepoints.add(new PVector(0,0,0));
@@ -17,8 +15,7 @@ class PowerUpGroup extends Group<MassedBeing> {
     PowerUp invisibility = new PowerUp(center,shapepoints);
     world.register(invisibility, true);
     this.add(invisibility);
-  }
-  
+  } 
 }
 
 

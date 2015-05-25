@@ -16,10 +16,7 @@ class PlatformCollider extends GenericMassedCollider<MassedBeing, Platform> {
   }
   
   void handle(Crawler crawler, Platform platform) {
-
 //    super.handle(crawler, platform);
     crawler.stopfall();
-
-  }
-  
+  }  
 }

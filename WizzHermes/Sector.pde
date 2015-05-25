@@ -41,6 +41,5 @@ static class Sector extends Being {
     rects[7] = rectOfSector(x - 1, y + 1); // SW
     
     return rects;
-  }
-    
+  }   
 }

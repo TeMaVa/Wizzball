@@ -44,6 +44,5 @@ class SectorGrid extends Being {
       sectors.put(coors, sector);       // add the new sector to the hastable
     }
     return sector;
-  }
-  
+  } 
 }
